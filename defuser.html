@@ -16,14 +16,63 @@
     </header>
 
     <main>
-       
+        <div class="kaboom">
+            <button class="restart-game">Try Again?</button>
+          </div>
+          <div class="win">
+            <div class="title">You Win!</div>
+            <button class="restart-game">Play Again</button>
+          </div>
+          <div class="modal">
+            <div class="modal-content">
+              <div class="modal-title">Ka-Boom!</div>
+              <div class="modal-body">
+                <ul>
+                  <li>
+                    A 2-person bomb defusal game.</li>
+                  <li>One person will have these <a href="http://tedjamulia.com/dev/images/instructions.pdf">instructions</a>.</li>
+                  <li>Another will defuse the bomb by listening to the instructions.</li>
+                  <li>You have 4 minutes until KA-BOOM!</li>
+                </ul>
+                <button class="start-game">Start!</button>
+              </div>
+            </div>
+          </div>
+          <div class="bomb-case">
+            <div class="top-panel">
+              <div class="top-container side-by-side">
+                <div class="sticker">#</div>
+              </div><div class="top-container side-by-side">
+                <div class="switch side-by-side"></div>
+                <div class="status side-by-side"></div>
+              </div><div class="top-container side-by-side">
+                <div class="timer"></div>
+              </div>
+            </div>
+            <div class="bottom-container">
+              <div class="lower-panel side-by-side">
+                <div class="button a side-by-side" data="redButton"></div>
+                <div class="button b side-by-side" data="blueButton"></div>
+                <div class="button c side-by-side" data="greenButton"></div>
+                <div class="button d side-by-side" data="yellowButton"></div>
+              </div><div class="lower-panel side-by-side">
+                <div class="wire-container">
+                  <div class="wire green" data="greenWire"></div>
+                  <div class="wire yellow" data="yellowWire"></div>
+                  <div class="wire red" data="redWire"></div>
+                  <div class="wire blue" data="blueWire"></div>
+                </div>
+              </div>
+            </div>
+          </div>
     </main>
 
     <footer>
         Created by Oleksandr Serhienko / Oleksandr Zadorozhny
     </footer>
 
-    
+    <script src='https://rawgit.com/jorel13/ElementalJS/master/elemental.js'></script><script  src="/script.js"></script>
+
 
 </body>
 
