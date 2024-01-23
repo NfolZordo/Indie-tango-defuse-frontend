@@ -12,18 +12,23 @@
     <header>
         <button id="restartButton">Restart</button>
         <div id="defuser">Helper</div>
-        <div id="sessionCode">Session Code: <span id="code"><input type="text" id="newCode" placeholder="Type new code here"><button id="submitButton">Submit</button></span></div>
+        <div id="sessionCode">Session Code: <span id="code"><input type="text" id="newCode" placeholder="Type new code here"><button onclick="joinGame()" id="submitButton">Submit</button></span></div>
     </header>
 
     <main>
+        <div class="timer"></div>
         <!-- helper info -->
     </main>
 
     <footer>
         Created by Oleksandr Serhienko / Oleksandr Zadorozhny
     </footer>
-
-    <script src='https://rawgit.com/jorel13/ElementalJS/master/elemental.js'></script><script  src="/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script  src="./webSocketHelper.js"></script>
+    <script src='https://rawgit.com/jorel13/ElementalJS/master/elemental.js'></script>
+    <script  src="./script.js"></script>
 
 
 </body>

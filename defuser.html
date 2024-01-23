@@ -27,7 +27,7 @@
             <div class="modal-content">
               <div class="modal-title">Ka-Boom!</div>
               <div class="modal-body">
-                <ul>
+                <ul id="start-game-lisst">
                   <li>
                     A 2-person bomb defusal game.</li>
                   <li>One person will have these <a href="http://tedjamulia.com/dev/images/instructions.pdf">instructions</a>.</li>
@@ -71,9 +71,11 @@
         Created by Oleksandr Serhienko / Oleksandr Zadorozhny
     </footer>
 
-    <script src='https://rawgit.com/jorel13/ElementalJS/master/elemental.js'></script><script  src="/script.js"></script>
-
-
-</body>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src='https://rawgit.com/jorel13/ElementalJS/master/elemental.js'></script>
+    <script  src="./webSocketDefuser.js"></script>
+    <script  src="./script.js"></script>
 
 </html>
