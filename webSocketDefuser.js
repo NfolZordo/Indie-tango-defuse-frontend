@@ -38,7 +38,8 @@ function createGame() {
 
 // Функція для запуску таймера
 function startTimer() {
-    stompClient.send("/app/startTimer", {}, {});
+    var difficultyRadio = document.querySelector('input[name="difficulty"]:checked');
+    stompClient.send("/app/startTimer", {}, difficultyRadio.value);
 }
 
 // Функція для виведення таймера на сторінку

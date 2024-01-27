@@ -136,24 +136,25 @@ var constants = {
   };
   
   var resetGame = function() {
-    //Clear out lose message
-    kaboom.setStyle("transform: scale(0)");
+    location.reload();
+    // //Clear out lose message
+    // kaboom.setStyle("transform: scale(0)");
   
-    //Clear out win message
-    win.setStyle("transform: scale(0)");
+    // //Clear out win message
+    // win.setStyle("transform: scale(0)");
   
-    //reset buttons
-    buttons.toggleClass("on", REMOVE_ONLY);
+    // //reset buttons
+    // buttons.toggleClass("on", REMOVE_ONLY);
   
-    //reset wires
-    wires.toggleClass("cut", REMOVE_ONLY);
+    // //reset wires
+    // wires.toggleClass("cut", REMOVE_ONLY);
   
-    //reset switch
-    switchButton.toggleClass("on", REMOVE_ONLY);
+    // //reset switch
+    // switchButton.toggleClass("on", REMOVE_ONLY);
   
-    //reset status of bomb
-    safetyStatus.toggleClass("safe", REMOVE_ONLY);
+    // //reset status of bomb
+    // safetyStatus.toggleClass("safe", REMOVE_ONLY);
   
-    //reset stepsTaken
-    stepsTaken = [];
+    // //reset stepsTaken
+    // stepsTaken = [];
   };
