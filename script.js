@@ -44,6 +44,7 @@ var constants = {
   startButton.addListener("click", function() {
     modal.toggle();
     ignition();
+    startTimer();
   });
   var kaboom = summon(".kaboom");
   var win = summon(".win");
@@ -85,17 +86,17 @@ var constants = {
   });
   
   var timer = function() {
-    if (currentTimeInSeconds < 0) {
-      loseGame();
-    } else {
-      constants.blipAudio.play();
-      minutes = parseInt(currentTimeInSeconds / 60000);
-      seconds = parseInt(currentTimeInSeconds % 60000) / 1000;
+    // if (currentTimeInSeconds < 0) {
+    //   loseGame();
+    // } else {
+    //   constants.blipAudio.play();
+    //   minutes = parseInt(currentTimeInSeconds / 60000);
+    //   seconds = parseInt(currentTimeInSeconds % 60000) / 1000;
   
-      seconds = seconds < 10 ? "0" + seconds : seconds;
-      currentTimeInSeconds = currentTimeInSeconds - 1000;
-      timerText.htmlElement.innerHTML = minutes + ":" + seconds;
-    }
+    //   seconds = seconds < 10 ? "0" + seconds : seconds;
+    //   currentTimeInSeconds = currentTimeInSeconds - 1000;
+    //   // timerText.htmlElement.innerHTML = minutes + ":" + seconds;
+    // }
   };
   
   var ignition = function() {
@@ -119,14 +120,15 @@ var constants = {
       return;
     }
   };
-  
+
   var loseGame = function() {
     constants.explosionAudio.play();
     kaboom.setStyle("transform: scale(1)");
     clearInterval(time);
     timerText.htmlElement.innerHTML = "0:00";
   };
-  
+
+
   var winGame = function() {
     safetyStatus.toggleClass("safe");
     win.setStyle("transform: scale(1)");
