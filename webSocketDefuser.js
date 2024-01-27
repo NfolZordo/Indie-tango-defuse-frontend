@@ -55,10 +55,18 @@ function showTimer(message) {
 
 }
 
+function resetGame() {
+    location.reload(true);
+}
+
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
     console.log("Підключення до WebSocket");
     connect();
 
+    document.getElementById('restartButton').addEventListener('click', function () {
+        window.location.href = 'index.html';
+        // location.reload(true);
+    });
 });
 

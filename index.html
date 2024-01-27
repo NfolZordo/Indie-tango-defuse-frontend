@@ -30,16 +30,16 @@
     <footer>
         Created by Oleksandr Serhienko / Oleksandr Zadorozhny
     </footer>
-    
+
 
     <div id="popup" class="popup">
         <p>Enter session:</p>
         <input type="text" id="inputField" onkeypress="checkEnter(event)">
-        <button onclick="redirect()">Submit</button>
+        <button onclick="displayDate()">Submit</button>
         <button onclick="closePopup()">Close</button>
-      </div>
-    
-    
+    </div>
+
+
     <script>
         function defuserClicked() {
             // Handle defuser button click event
@@ -53,27 +53,23 @@
 
         function openPopup() {
             document.getElementById('popup').style.display = 'block';
-            document.getElementById('dateInput').focus();
-          }
-        
-          function closePopup() {
+            document.getElementById('inputField').focus();
+        }
+
+        function closePopup() {
             document.getElementById('popup').style.display = 'none';
-          }
-        
-          function checkEnter(event) {
+        }
+
+        function checkEnter(event) {
             if (event.key === 'Enter') {
-              displayDate();
+                displayDate();
             }
-          }
-        
-          function displayDate() {
-            var selectedDate = document.getElementById('dateInput').value;
-            if (selectedDate.trim() !== '') {
-              document.getElementById('sessionCode').style.display = 'block';
-              document.getElementById('code').innerText = selectedDate;
-              closePopup();
-            }
-          }
+        }
+
+        function displayDate() {
+            var selectedDate = document.getElementById('inputField').value;
+            window.location.href = 'helper.html?sessionCode=' + encodeURIComponent(selectedDate);
+        }
     </script>
 
 </body>
