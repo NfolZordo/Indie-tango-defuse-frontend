@@ -23,14 +23,23 @@
     <main>
         <div>
             <button onclick="defuserClicked()">Defuser</button>
-            <button onclick="helperClicked()">Helper</button>
+            <button onclick="openPopup()">Helper</button>
         </div>
     </main>
 
     <footer>
         Created by Oleksandr Serhienko / Oleksandr Zadorozhny
     </footer>
+    
 
+    <div id="popup" class="popup">
+        <p>Enter session:</p>
+        <input type="text" id="inputField" onkeypress="checkEnter(event)">
+        <button onclick="redirect()">Submit</button>
+        <button onclick="closePopup()">Close</button>
+      </div>
+    
+    
     <script>
         function defuserClicked() {
             // Handle defuser button click event
@@ -41,6 +50,30 @@
             // Handle helper button click event
             console.log("Helper button clicked");
         }
+
+        function openPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('dateInput').focus();
+          }
+        
+          function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+          }
+        
+          function checkEnter(event) {
+            if (event.key === 'Enter') {
+              displayDate();
+            }
+          }
+        
+          function displayDate() {
+            var selectedDate = document.getElementById('dateInput').value;
+            if (selectedDate.trim() !== '') {
+              document.getElementById('sessionCode').style.display = 'block';
+              document.getElementById('code').innerText = selectedDate;
+              closePopup();
+            }
+          }
     </script>
 
 </body>

@@ -76,7 +76,7 @@ footer {
     width: 100%;
     height: 100%;
     z-index: 200;
-    background: url("http://tedjamulia.com/dev/images/kaboom.png") no-repeat;
+    /* background: url("http://tedjamulia.com/dev/images/kaboom.png") no-repeat; */
     background-size: 100%;
     background-position: 75% 40%;
     transform-origin: 50% 50%;
@@ -175,10 +175,11 @@ footer {
   
   .bomb-case {
     position: absolute;
+    background-image: url("/res/bomb.png");
     top: 9%;
-    bottom: 5%;
-    left: 5%;
-    right: 5%;
+    bottom: 13%;
+    left: 12%;
+    right: 12%;
     border: 1px solid;
   }
   
@@ -188,10 +189,10 @@ footer {
   }
   
   .top-container {
-    width: 33.33%;
+    width: 25.33%;
     height: 100%;
     box-shadow: inset 0 0 0 1px #111;
-    background-image: url("http://tedjamulia.com/dev/images/screw.png"), url("http://tedjamulia.com/dev/images/screw.png"), url("http://tedjamulia.com/dev/images/screw.png"), url("http://tedjamulia.com/dev/images/screw.png"), url("http://tedjamulia.com/dev/images/metal-texture-7.jpg");
+    background-image: url("/res/screw.png"), url("/res/screw.png"), url("/res/screw.png"), url("/res/screw.png"), url("/res/panel.png");
     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
     background-position: 1% 2%, 99% 2%, 1% 98%, 99% 98%, top left;
     background-size: 8%, 8%, 8%, 8%, cover;
@@ -204,9 +205,9 @@ footer {
   }
   
   .lower-panel {
-    width: 50%;
-    height: 100%;
-    background: url("http://tedjamulia.com/dev/images/screw.png"), url("http://tedjamulia.com/dev/images/screw.png"), url("http://tedjamulia.com/dev/images/screw.png"), url("http://tedjamulia.com/dev/images/screw.png"), url("http://tedjamulia.com/dev/images/metal_plate.jpg");
+    width: 38%;
+    height: 79%;
+    background: url("/res/screw.png"), url("/res/screw.png"), url("/res/screw.png"), url("/res/screw.png"), url("/res/big_panel.png");
     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
     background-position: 1% 1%, 99% 1%, 1% 99%, 99% 99%, top left;
     background-size: 5.5%, 5.5%, 5.5%, 5.5%, cover;
@@ -215,7 +216,7 @@ footer {
   
   .sticker {
     width: 80%;
-    height: 50%;
+    height: 90%;
     margin-top: 15%;
     margin-left: 10%;
     transform: rotate(-10deg);
@@ -223,7 +224,7 @@ footer {
     font-size: 6rem;
     letter-spacing: 20px;
     text-align: center;
-    background: url("http://tedjamulia.com/dev/images/worn_sticker.png") no-repeat;
+    background: url("/res/91.png") no-repeat;
     background-size: contain;
   }
   
