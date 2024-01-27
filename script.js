@@ -98,15 +98,17 @@ var constants = {
     //   // timerText.htmlElement.innerHTML = minutes + ":" + seconds;
     // }
   };
-  
-  var ignition = function() {
-    var scenarioNumber = Math.floor((Math.random() * 10));
-  
+  var scenarioNumber;
+  var ignition = function(gameCode) {
+    console.log("ignition +++ " + gameCode);
+    if (scenarioNumber == undefined) {
+      scenarioNumber = parseInt(gameCode) % 10
+    }
     stepsToTake = constants.scenarios[scenarioNumber].steps;
     currentTimeInSeconds = constants.defaultTimeInSeconds;
     time = setInterval(timer, 1000);
     sticker.htmlElement.innerHTML = "#" + scenarioNumber;
-  };
+};
   
   var checkSolution = function() {
     for (var i = 0; i < this.stepsTaken.length; i++) {

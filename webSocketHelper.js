@@ -7,25 +7,51 @@ function connect() {
     let socket = new SockJS('http://localhost:8080/connect');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
+        // console.log('Connected: ' + frame);
 
         // Підписка на отримання повідомлень таймера
         stompClient.subscribe('/user/queue/getTimerValue', function (message) {
             showTimer(JSON.parse(message.body));
-            console.log("getTimerValue" + message.body);
+            // console.log("getTimerValue" + message.body);
+        });
+
+        // Підписка на отримання повідомлень завдання
+        stompClient.subscribe('/user/queue/getTask', function (message) {
+            // console.log("Received image data");
+            displayImage(message.body);
         });
         joinGame(sessionCode);
-
+        getTask(sessionCode);
     });
 }
 
 // Функція для приєднання до існуючої гри
 function joinGame(gameCode) {
     // let gameCode = document.getElementById('newCode').value;
-    console.log(gameCode);
+    // console.log(gameCode);
     stompClient.send("/app/joinGame", {}, gameCode);
 }
 
+function getTask(gameCode) {
+    stompClient.send("/app/getTask", {}, gameCode);
+}
+
+// Function to display the received image on the main page
+function displayImage(message) {
+    try {
+        const imageInfo = JSON.parse(message);
+        const imageData = imageInfo.body;
+        
+        let imgElement = document.createElement('img');
+        imgElement.src = "data:image/jpeg;base64," + imageData;
+        imgElement.alt = "Received Image";
+        
+        // Append the image to the main section of the HTML page
+        document.querySelector('main').appendChild(imgElement);
+    } catch (error) {
+        console.error("Error parsing image data:", error);
+    }
+}
 // Функція для виведення таймера на сторінку
 function showTimer(message) {
     if (message <= 0) {
