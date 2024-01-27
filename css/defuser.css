@@ -77,7 +77,7 @@ footer {
     width: 100%;
     height: 100%;
     z-index: 200;
-    /* background: url("http://tedjamulia.com/dev/images/kaboom.png") no-repeat; */
+    background: url("/res/123.gif") no-repeat;
     background-size: 100%;
     background-position: 75% 40%;
     transform-origin: 50% 50%;
@@ -177,8 +177,8 @@ footer {
   .bomb-case {
     position: absolute;
     background-image: url("/res/bomb.png");
-    top: 9%;
-    bottom: 13%;
+    top: 7%;
+    bottom: 4%;
     left: 12%;
     right: 12%;
     border: 1px solid;
