@@ -73,3 +73,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+var loseGame = function() {
+    constants.explosionAudio.play();
+    kaboom.setStyle("transform: scale(1)");
+    clearInterval(time);
+    stompClient.send("/app/stopTimer", {}, {});
+  };
+
+
+  var winGame = function() {
+    safetyStatus.toggleClass("safe");
+    win.setStyle("transform: scale(1)");
+    clearInterval(time);
+    stompClient.send("/app/stopTimer", {}, {});
+  };
+

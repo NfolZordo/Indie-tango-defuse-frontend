@@ -122,20 +122,6 @@ var constants = {
       return;
     }
   };
-
-  var loseGame = function() {
-    constants.explosionAudio.play();
-    kaboom.setStyle("transform: scale(1)");
-    clearInterval(time);
-    timerText.htmlElement.innerHTML = "0:00";
-  };
-
-
-  var winGame = function() {
-    safetyStatus.toggleClass("safe");
-    win.setStyle("transform: scale(1)");
-    clearInterval(time);
-  };
   
   var resetGame = function() {
     location.reload();
