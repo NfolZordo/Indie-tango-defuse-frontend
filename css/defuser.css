@@ -225,8 +225,12 @@ footer {
     font-size: 6rem;
     letter-spacing: 20px;
     text-align: center;
-    background: url("/res/91.png") no-repeat;
+    background: url("/res/93.png") no-repeat;
     background-size: contain;
+    display: flex;
+    justify-content: center; /* Horizontally centers the content */
+    align-items: center;
+    
   }
   
   @media all and (min-width: 1570px) {
