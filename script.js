@@ -98,15 +98,17 @@ var constants = {
     //   // timerText.htmlElement.innerHTML = minutes + ":" + seconds;
     // }
   };
-  
-  var ignition = function() {
-    var scenarioNumber = Math.floor((Math.random() * 10));
-  
+  var scenarioNumber;
+  var ignition = function(gameCode) {
+    console.log("ignition +++ " + gameCode);
+    if (scenarioNumber == undefined) {
+      scenarioNumber = parseInt(gameCode) % 10
+    }
     stepsToTake = constants.scenarios[scenarioNumber].steps;
     currentTimeInSeconds = constants.defaultTimeInSeconds;
     time = setInterval(timer, 1000);
     sticker.htmlElement.innerHTML = "#" + scenarioNumber;
-  };
+};
   
   var checkSolution = function() {
     for (var i = 0; i < this.stepsTaken.length; i++) {
@@ -120,40 +122,27 @@ var constants = {
       return;
     }
   };
-
-  var loseGame = function() {
-    constants.explosionAudio.play();
-    kaboom.setStyle("transform: scale(1)");
-    clearInterval(time);
-    timerText.htmlElement.innerHTML = "0:00";
-  };
-
-
-  var winGame = function() {
-    safetyStatus.toggleClass("safe");
-    win.setStyle("transform: scale(1)");
-    clearInterval(time);
-  };
   
   var resetGame = function() {
-    //Clear out lose message
-    kaboom.setStyle("transform: scale(0)");
+    location.reload();
+    // //Clear out lose message
+    // kaboom.setStyle("transform: scale(0)");
   
-    //Clear out win message
-    win.setStyle("transform: scale(0)");
+    // //Clear out win message
+    // win.setStyle("transform: scale(0)");
   
-    //reset buttons
-    buttons.toggleClass("on", REMOVE_ONLY);
+    // //reset buttons
+    // buttons.toggleClass("on", REMOVE_ONLY);
   
-    //reset wires
-    wires.toggleClass("cut", REMOVE_ONLY);
+    // //reset wires
+    // wires.toggleClass("cut", REMOVE_ONLY);
   
-    //reset switch
-    switchButton.toggleClass("on", REMOVE_ONLY);
+    // //reset switch
+    // switchButton.toggleClass("on", REMOVE_ONLY);
   
-    //reset status of bomb
-    safetyStatus.toggleClass("safe", REMOVE_ONLY);
+    // //reset status of bomb
+    // safetyStatus.toggleClass("safe", REMOVE_ONLY);
   
-    //reset stepsTaken
-    stepsTaken = [];
+    // //reset stepsTaken
+    // stepsTaken = [];
   };

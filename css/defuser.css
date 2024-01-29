@@ -455,3 +455,19 @@ footer {
     display: inline-block;
     vertical-align: top;
   }
+
+  /* Додайте ці стилі у ваш CSS-файл */
+.difficulty-radio {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.difficulty-radio label {
+  font-size: 16px;
+  margin-right: 40px;
+}
+
+.difficulty-radio input {
+  margin-right: 5px;
+}

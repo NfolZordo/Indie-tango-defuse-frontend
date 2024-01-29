@@ -10,10 +10,12 @@ function connect() {
 
         // Підписка на отримання коду гри
         stompClient.subscribe('/user/queue/gameCode', function (message) {
-            var gameCode = message.body;
+            let gameCode = message.body;
             console.log("Received game code: " + gameCode);
             showCode(gameCode);
             document.getElementById('code').innerText = gameCode;
+    
+            ignition(gameCode);
         });
 
         // Підписка на отримання повідомлень таймера
@@ -26,8 +28,8 @@ function connect() {
 }
 // Функція для виведення коду на сторінку
 function showCode(gameCode) {
-    var chatMessages = document.getElementById('start-game-lisst');
-    var li = document.createElement('li');
+    let chatMessages = document.getElementById('start-game-lisst');
+    let li = document.createElement('li');
     li.appendChild(document.createTextNode("In order for another player to be able to connect to you, give him this code: " + gameCode));
     chatMessages.appendChild(li);
 }
@@ -38,13 +40,15 @@ function createGame() {
 
 // Функція для запуску таймера
 function startTimer() {
-    stompClient.send("/app/startTimer", {}, {});
+    let difficultyRadio = document.querySelector('input[name="difficulty"]:checked');
+    stompClient.send("/app/startTimer", {}, difficultyRadio.value);
 }
 
 // Функція для виведення таймера на сторінку
 function showTimer(message) {
     if (message <= 0) {
         loseGame();
+        timerText.htmlElement.innerHTML = "0:00";
     } else {
         var minutes = Math.floor(message / 60);
         var seconds = message % 60;
@@ -69,4 +73,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // location.reload(true);
     });
 });
+
+var loseGame = function() {
+    constants.explosionAudio.play();
+    kaboom.setStyle("transform: scale(1)");
+    clearInterval(time);
+    stompClient.send("/app/stopTimer", {}, {});
+  };
+
+
+  var winGame = function() {
+    safetyStatus.toggleClass("safe");
+    win.setStyle("transform: scale(1)");
+    clearInterval(time);
+    stompClient.send("/app/stopTimer", {}, {});
+  };
 
