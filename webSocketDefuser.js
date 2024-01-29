@@ -48,6 +48,7 @@ function startTimer() {
 function showTimer(message) {
     if (message <= 0) {
         loseGame();
+        timerText.htmlElement.innerHTML = "0:00";
     } else {
         var minutes = Math.floor(message / 60);
         var seconds = message % 60;
