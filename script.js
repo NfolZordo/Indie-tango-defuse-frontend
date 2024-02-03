@@ -64,7 +64,7 @@ var constants = {
   switchButton.addListener("click", function() {
     switchButton.toggleClass("on");
     stepsTaken.push(constants.switchButton);
-    checkSolution();
+    doStep(constants.switchButton);
   });
   
   var buttons = summonAll(".button");
@@ -72,7 +72,7 @@ var constants = {
     button.addListener("click", function(e) {
       button.toggleClass("on");
       stepsTaken.push(button.get("data"));
-      checkSolution();
+      doStep(button.get("data"));
     });
   });
   
@@ -81,7 +81,7 @@ var constants = {
     wire.addListener("click", function() {
       wire.toggleClass("cut");
       stepsTaken.push(wire.get("data"));
-      checkSolution();
+      doStep(wire.get("data"));
     });
   });
   
@@ -100,7 +100,6 @@ var constants = {
   };
   var scenarioNumber;
   var ignition = function(gameCode) {
-    console.log("ignition +++ " + gameCode);
     if (scenarioNumber == undefined) {
       scenarioNumber = parseInt(gameCode) % 10
     }
@@ -110,17 +109,25 @@ var constants = {
     sticker.htmlElement.innerHTML = "#" + scenarioNumber;
 };
   
-  var checkSolution = function() {
-    for (var i = 0; i < this.stepsTaken.length; i++) {
-      if (stepsTaken[i] != stepsToTake[i]) {
-        loseGame();
-        return;
-      }
-    }
-    if (stepsTaken.length == stepsToTake.length) {
+  var checkSolution = function(stepTaken) {
+    if (stepTaken == "false") {
+      loseGame();
+      return;
+    } else if (stepTaken == "win") {
       winGame();
       return;
     }
+
+    // for (var i = 0; i < this.stepsTaken.length; i++) {
+    //   if (stepsTaken[i] != stepsToTake[i]) {
+    //     loseGame();
+    //     return;
+    //   }
+    // }
+    // if (stepsTaken.length == stepsToTake.length) {
+    //   winGame();
+    //   return;
+    // }
   };
   
   var resetGame = function() {

@@ -7,17 +7,14 @@ function connect() {
     let socket = new SockJS('http://localhost:8080/connect');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        // console.log('Connected: ' + frame);
 
         // Підписка на отримання повідомлень таймера
         stompClient.subscribe('/user/queue/getTimerValue', function (message) {
             showTimer(JSON.parse(message.body));
-            // console.log("getTimerValue" + message.body);
         });
 
         // Підписка на отримання повідомлень завдання
         stompClient.subscribe('/user/queue/getTask', function (message) {
-            // console.log("Received image data");
             displayImage(message.body);
         });
         joinGame(sessionCode);
@@ -28,7 +25,6 @@ function connect() {
 // Функція для приєднання до існуючої гри
 function joinGame(gameCode) {
     // let gameCode = document.getElementById('newCode').value;
-    // console.log(gameCode);
     stompClient.send("/app/joinGame", {}, gameCode);
 }
 
@@ -68,7 +64,6 @@ function showTimer(message) {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("Підключення до WebSocket");
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
@@ -81,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
     sessionCode = getParameterByName('sessionCode');
     document.getElementById('code').textContent = sessionCode;
     connect();
-    console.log("Підключення до WebSocket connectconnect");
 
     document.getElementById('restartButton').addEventListener('click', function () {
         window.location.href = 'index.html';

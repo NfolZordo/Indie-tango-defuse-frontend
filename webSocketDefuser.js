@@ -6,22 +6,23 @@ function connect() {
     var socket = new SockJS('http://localhost:8080/connect');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
 
         // Підписка на отримання коду гри
         stompClient.subscribe('/user/queue/gameCode', function (message) {
             let gameCode = message.body;
-            console.log("Received game code: " + gameCode);
             showCode(gameCode);
             document.getElementById('code').innerText = gameCode;
-    
+
             ignition(gameCode);
         });
 
         // Підписка на отримання повідомлень таймера
         stompClient.subscribe('/user/queue/getTimerValue', function (message) {
             showTimer(JSON.parse(message.body));
-            console.log("getTimerValue" + message.body);
+        });
+
+        stompClient.subscribe('/user/queue/doStep', function (message) {
+            checkSolution(JSON.parse(message.body).body);
         });
         createGame();
     });
@@ -33,9 +34,14 @@ function showCode(gameCode) {
     li.appendChild(document.createTextNode("In order for another player to be able to connect to you, give him this code: " + gameCode));
     chatMessages.appendChild(li);
 }
+
 // Функція для створення нової гри
 function createGame() {
     stompClient.send("/app/createGame", {}, {});
+}
+
+function doStep(stepTaken) {
+    stompClient.send("/app/doStep", {}, stepTaken);
 }
 
 // Функція для запуску таймера
@@ -65,7 +71,6 @@ function resetGame() {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("Підключення до WebSocket");
     connect();
 
     document.getElementById('restartButton').addEventListener('click', function () {
@@ -74,18 +79,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-var loseGame = function() {
+var loseGame = function () {
     constants.explosionAudio.play();
     kaboom.setStyle("transform: scale(1)");
     clearInterval(time);
     stompClient.send("/app/stopTimer", {}, {});
-  };
+};
 
 
-  var winGame = function() {
+var winGame = function () {
     safetyStatus.toggleClass("safe");
     win.setStyle("transform: scale(1)");
     clearInterval(time);
     stompClient.send("/app/stopTimer", {}, {});
-  };
+};
 
