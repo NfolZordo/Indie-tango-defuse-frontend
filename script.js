@@ -110,7 +110,7 @@ var constants = {
 };
   
   var checkSolution = function(stepTaken) {
-    if (stepTaken == "luse") {
+    if (stepTaken == "lose") {
       loseGame();
       return;
     } else if (stepTaken == "win") {
