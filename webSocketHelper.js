@@ -4,7 +4,8 @@ var timerText = document.querySelector(".timer");
 
 // Функція для підключення до WebSocket сервера
 function connect() {
-    let socket = new SockJS('http://localhost:8080/connect');
+    // let socket = new SockJS('http://localhost:5000/connect');
+    var socket = new SockJS('https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/connect');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
 
