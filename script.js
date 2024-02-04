@@ -110,11 +110,14 @@ var constants = {
 };
   
   var checkSolution = function(stepTaken) {
-    if (stepTaken == "false") {
+    if (stepTaken == "luse") {
       loseGame();
       return;
     } else if (stepTaken == "win") {
       winGame();
+      return;
+    } else if (stepTaken == "false") {
+      mistake();
       return;
     }
 
@@ -130,6 +133,10 @@ var constants = {
     // }
   };
   
+  var mistake = function () {
+    // Користувач зробив помилку але не програв
+  };
+
   var resetGame = function() {
     location.reload();
     // //Clear out lose message
