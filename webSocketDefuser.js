@@ -28,11 +28,33 @@ function connect() {
         createGame();
     });
 }
+
 // Функція для виведення коду на сторінку
 function showCode(gameCode) {
     let chatMessages = document.getElementById('start-game-lisst');
     let li = document.createElement('li');
-    li.appendChild(document.createTextNode("https://sprightly-elf-836547.netlify.app/helper.html?sessionCode=" + gameCode));
+    
+    // Створення посилання
+    let link = document.createElement('a');
+    link.href = "https://sprightly-elf-836547.netlify.app/helper.html?sessionCode=" + gameCode;
+    link.textContent = "Link to connect another player: https://sprightly-elf-836547.netlify.app/helper.html?sessionCode=" + gameCode;
+    
+    // Додавання посилання до елементу списку
+    li.appendChild(link);
+    
+    // Створення кнопки для копіювання
+    let copyButton = document.createElement('button');
+    copyButton.textContent = 'Copy Link';
+    
+    // Додавання обробника подій для копіювання посилання
+    copyButton.addEventListener('click', function() {
+        navigator.clipboard.writeText(link.href);
+    });
+    
+    // Додавання кнопки до елементу списку
+    li.appendChild(copyButton);
+    
+    // Додавання елементу списку до контейнера повідомлень
     chatMessages.appendChild(li);
 }
 
