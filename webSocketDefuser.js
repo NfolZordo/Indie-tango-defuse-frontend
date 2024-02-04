@@ -32,7 +32,7 @@ function connect() {
 function showCode(gameCode) {
     let chatMessages = document.getElementById('start-game-lisst');
     let li = document.createElement('li');
-    li.appendChild(document.createTextNode("In order for another player to be able to connect to you, give him this code: " + gameCode));
+    li.appendChild(document.createTextNode("https://sprightly-elf-836547.netlify.app/helper.html?sessionCode=" + gameCode));
     chatMessages.appendChild(li);
 }
 
