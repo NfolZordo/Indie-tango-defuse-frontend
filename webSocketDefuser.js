@@ -1,10 +1,11 @@
 var stompClient = null;
 var timerText = document.querySelector(".timer");
+var token;
 
 // Функція для підключення до WebSocket сервера
 function connect() {
-    // var socket = new SockJS('http://localhost:5000/connect');
-    var socket = new SockJS('https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/connect');
+    var socket = new SockJS('http://localhost:5000/connect');
+    // var socket = new SockJS('https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/connect');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
 
@@ -60,7 +61,8 @@ function showCode(gameCode) {
 
 // Функція для створення нової гри
 function createGame() {
-    stompClient.send("/app/createGame", {}, {});
+    let userName = "qwe2@qwe";
+    stompClient.send("/app/createGame", {}, userName);
 }
 
 function doStep(stepTaken) {
@@ -70,7 +72,12 @@ function doStep(stepTaken) {
 // Функція для запуску таймера
 function startTimer() {
     let difficultyRadio = document.querySelector('input[name="difficulty"]:checked');
-    stompClient.send("/app/startTimer", {}, difficultyRadio.value);
+    let payload = {
+        gameMode: difficultyRadio.value,
+        Authorization: token
+    };
+    // stompClient.send("/app/startTimer", {}, difficultyRadio.value);
+    stompClient.send("/app/startTimer", {}, JSON.stringify(payload));
 }
 
 // Функція для виведення таймера на сторінку
@@ -85,7 +92,6 @@ function showTimer(message) {
         seconds = (seconds < 10) ? "0" + seconds : seconds;
         timerText.htmlElement.innerHTML = minutes + ":" + seconds;
     }
-
 }
 
 function resetGame() {
@@ -95,7 +101,8 @@ function resetGame() {
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
     connect();
-
+    token = 'Bearer ' + localStorage.getItem('token');
+    
     document.getElementById('restartButton').addEventListener('click', function () {
         window.location.href = 'index.html';
         // location.reload(true);
@@ -106,14 +113,13 @@ var loseGame = function () {
     constants.explosionAudio.play();
     kaboom.setStyle("transform: scale(1)");
     clearInterval(time);
-    stompClient.send("/app/stopTimer", {}, {});
+    stompClient.send("/app/stopTimer", {}, token);
 };
-
 
 var winGame = function () {
     safetyStatus.toggleClass("safe");
     win.setStyle("transform: scale(1)");
     clearInterval(time);
-    stompClient.send("/app/stopTimer", {}, {});
+    stompClient.send("/app/stopTimer", {}, token);
 };
 

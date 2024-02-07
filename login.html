@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <h2>Register</h2>
+    <form onsubmit="register(event)">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <h2>Login</h2>
+    <form onsubmit="authenticate(event)">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <h2>addFriends</h2>
+    <form onsubmit="addFriends(event)">
+        <div>
+            <label for="email">friendEmail:</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+    <button onclick="logOut()">LogOut</button>
+
+</body>
+
+</html>
+<script src="./webSocketHelper.js"></script>
+<script>
+    function authenticate(event) {
+        event.preventDefault(); // Щоб уникнути перезавантаження сторінки
+        const url = 'http://localhost:5000/api/auth/authenticate';
+        const formData = {
+            email: event.target.email.value,
+            password: event.target.password.value
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // console.log(response.json());
+                return response.json();
+            })
+            .then(data => {
+                localStorage.setItem('token', data.token);
+                console.log("token saved");
+            })
+            .then(getFriends())
+            .catch(error => console.error('Fetch error:', error));
+
+        
+    }
+
+    function register(event) {
+        event.preventDefault();
+        const url = 'http://localhost:5000/api/auth/register';
+        const formData = {
+            email: event.target.email.value,
+            password: event.target.password.value
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log(response.json());
+                return response.json();
+            })
+            .then(data => {
+                localStorage.setItem('token', data.token);
+                console.log("token saved");
+            })
+            .catch(error => console.error('Fetch error:', error));
+    }
+
+    function getFriends() {
+        const url = 'http://localhost:5000/getInfo/getFriends';
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("data:", data);
+            })
+            .catch(error => console.error('Fetch error:', error));
+    }
+
+    function addFriends(event) {
+        event.preventDefault();
+        const url = 'http://localhost:5000/getInfo/addFriends';
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'friend': event.target.email.value
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("data:", data);
+            })
+            .catch(error => console.error('Fetch error:', error));
+    }
+
+    function logOut() {
+        event.preventDefault();
+        const url = 'http://localhost:5000/api/auth/logout';
+        fetch(url, {
+            method: 'POST',
+        });
+    }
+</script>
