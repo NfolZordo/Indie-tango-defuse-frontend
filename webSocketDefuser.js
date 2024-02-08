@@ -100,7 +100,10 @@ function resetGame() {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    connect();
+    connect();    
+    console.log('   token   ');
+    console.log(localStorage.getItem('token'));
+
     token = 'Bearer ' + localStorage.getItem('token');
     
     document.getElementById('restartButton').addEventListener('click', function () {
@@ -122,4 +125,3 @@ var winGame = function () {
     clearInterval(time);
     stompClient.send("/app/stopTimer", {}, token);
 };
-
