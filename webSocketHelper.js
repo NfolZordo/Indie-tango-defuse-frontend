@@ -81,7 +81,11 @@ function showTimer(message) {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    token = 'Bearer ' + localStorage.getItem('token');
+    if (localStorage.getItem('token')) {
+        token = 'Bearer ' + localStorage.getItem('token');
+    } else {
+        token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxd2UzQHF3ZSIsImlhdCI6MTcwNzMyNzk1NCwiZXhwIjoxNzA3OTMyNzU0fQ.zmGla_mgb6PnkCLapxOUKpIriA3DzGtPVRcSBTx0Yx8';
+    }
 
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
