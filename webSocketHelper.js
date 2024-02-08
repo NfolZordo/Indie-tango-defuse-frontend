@@ -19,10 +19,6 @@ function connect() {
         stompClient.subscribe('/user/queue/getTask', function (message) {
             displayImage(message.body);
         });
-
-        // stompClient.subscribe('/user/queue/getFriends', function (message) {
-        //     showFriends(message.body);
-        // });
         joinGame(sessionCode);
         getTask(sessionCode);
         getFriends()
@@ -41,8 +37,12 @@ function connect() {
 
 // Функція для приєднання до існуючої гри
 function joinGame(gameCode) {
+    let payload = {
+        gameCode: difficultyRadio.value,
+        Authorization: token
+    };
     // let gameCode = document.getElementById('newCode').value;
-    stompClient.send("/app/joinGame", {}, gameCode);
+    stompClient.send("/app/joinGame", {}, payload);
 }
 
 function getTask(gameCode) {
@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxd2UzQHF3ZSIsImlhdCI6MTcwNzMyNzk1NCwiZXhwIjoxNzA3OTMyNzU0fQ.zmGla_mgb6PnkCLapxOUKpIriA3DzGtPVRcSBTx0Yx8';
     }
-
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
