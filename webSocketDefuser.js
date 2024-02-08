@@ -104,7 +104,11 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('   token   ');
     console.log(localStorage.getItem('token'));
 
-    token = 'Bearer ' + localStorage.getItem('token');
+    if (localStorage.getItem('token')) {
+        token = 'Bearer ' + localStorage.getItem('token');
+    } else {
+        token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxd2UzQHF3ZSIsImlhdCI6MTcwNzMyNzk1NCwiZXhwIjoxNzA3OTMyNzU0fQ.zmGla_mgb6PnkCLapxOUKpIriA3DzGtPVRcSBTx0Yx8';
+    }
     
     document.getElementById('restartButton').addEventListener('click', function () {
         window.location.href = 'index.html';
