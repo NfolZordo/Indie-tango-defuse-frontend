@@ -62,7 +62,7 @@ function showCode(gameCode) {
 // Функція для створення нової гри
 function createGame() {
     let userName = "qwe2@qwe";
-    stompClient.send("/app/createGame", {}, userName);
+    stompClient.send("/app/createGame", {}, token);
 }
 
 function doStep(stepTaken) {
@@ -100,16 +100,15 @@ function resetGame() {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    connect();    
+    connect();
     console.log('   token   ');
     console.log(localStorage.getItem('token'));
-
     if (localStorage.getItem('token')) {
         token = 'Bearer ' + localStorage.getItem('token');
     } else {
         token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxd2UzQHF3ZSIsImlhdCI6MTcwNzMyNzk1NCwiZXhwIjoxNzA3OTMyNzU0fQ.zmGla_mgb6PnkCLapxOUKpIriA3DzGtPVRcSBTx0Yx8';
+        console.log('Token not found in localStorage');
     }
-    
     document.getElementById('restartButton').addEventListener('click', function () {
         window.location.href = 'index.html';
         // location.reload(true);
@@ -129,3 +128,4 @@ var winGame = function () {
     clearInterval(time);
     stompClient.send("/app/stopTimer", {}, token);
 };
+
