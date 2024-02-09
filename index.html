@@ -158,10 +158,11 @@
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
+                    location.reload();
                     return response.json();
                 })
                 .then(data => {
-                    location.reload();
+                    
                 })
                 .catch(error => console.error('Fetch error:', error));
         }
