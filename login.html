@@ -111,7 +111,7 @@
     }
     function authenticate(event) {
         event.preventDefault(); // Щоб уникнути перезавантаження сторінки
-        const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/authenticate';
+        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/authenticate';
         const formData = {
             email: event.target.email.value,
             password: event.target.password.value
@@ -140,7 +140,7 @@
 
     function register(event) {
         event.preventDefault();
-        const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/register';
+        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/register';
         const formData = {
             email: event.target.email.value,
             password: event.target.password.value
@@ -170,7 +170,7 @@
 
     function addFriends(event) {
         event.preventDefault();
-        const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/addFriends';
+        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/addFriends';
         fetch(url, {
             method: 'GET',
             headers: {
@@ -194,7 +194,7 @@
     function logOut() {
         localStorage.setItem('token', null);
         event.preventDefault();
-        const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/logout';
+        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/logout';
         fetch(url, {
             method: 'POST',
         });
