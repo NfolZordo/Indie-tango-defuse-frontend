@@ -103,7 +103,7 @@ function resetGame() {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    if (localStorage.getItem('token') != "null") {
+    if (localStorage.getItem('token') != "null" && localStorage.getItem('token') != null) {
         console.log("if (localStorage.getItem('token'))");
         token = 'Bearer ' + localStorage.getItem('token');
     } else {

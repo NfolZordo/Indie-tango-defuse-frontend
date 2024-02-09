@@ -80,7 +80,7 @@ function showTimer(message) {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    if (localStorage.getItem('token') && localStorage.getItem('token') != "null") {
+    if (localStorage.getItem('token') != "null" && localStorage.getItem('token') != null) {
         token = 'Bearer ' + localStorage.getItem('token');
     } else {
         token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZ2dAYXNkYXNkIiwiaWF0IjoxNzA3NDI1ODM3LCJleHAiOjE3MDgwMzA2Mzd9.e8Cgjz4WAn2iwDVG1XjsXCr5CfRWT7hKNsrRuJ1farM';
