@@ -37,10 +37,14 @@ function showCode(gameCode) {
     
     // Створення посилання
     let link = document.createElement('a');
+    let link2 = document.createElement('a');
+    link2.textContent = "Connect code or use link: " + gameCode + '    ';
     link.href = "https://sprightly-elf-836547.netlify.app/helper.html?sessionCode=" + gameCode;
     link.textContent = "Link to connect another player: https://sprightly-elf-836547.netlify.app/helper.html?sessionCode=" + gameCode;
     
     // Додавання посилання до елементу списку
+    li.appendChild(link2);
+
     li.appendChild(link);
     
     // Створення кнопки для копіювання
@@ -61,7 +65,6 @@ function showCode(gameCode) {
 
 // Функція для створення нової гри
 function createGame() {
-    let userName = "qwe2@qwe";
     stompClient.send("/app/createGame", {}, token);
 }
 
@@ -100,19 +103,28 @@ function resetGame() {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    connect();
-    console.log('   token   ');
-    console.log(localStorage.getItem('token'));
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') != "null") {
+        console.log("if (localStorage.getItem('token'))");
         token = 'Bearer ' + localStorage.getItem('token');
     } else {
-        token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxd2UzQHF3ZSIsImlhdCI6MTcwNzMyNzk1NCwiZXhwIjoxNzA3OTMyNzU0fQ.zmGla_mgb6PnkCLapxOUKpIriA3DzGtPVRcSBTx0Yx8';
+        token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZ2dAYXNkYXNkIiwiaWF0IjoxNzA3NDI1ODM3LCJleHAiOjE3MDgwMzA2Mzd9.e8Cgjz4WAn2iwDVG1XjsXCr5CfRWT7hKNsrRuJ1farM';
         console.log('Token not found in localStorage');
     }
     document.getElementById('restartButton').addEventListener('click', function () {
         window.location.href = 'index.html';
         // location.reload(true);
     });
+    console.log("localStorage.getItem('token')");
+    console.log(localStorage.getItem('token'));
+    console.log("('token')");
+    console.log(token);
+
+    connect();
+});
+
+window.addEventListener('beforeunload', function(event) {
+    stompClient.send("/app/stopTimer", {}, token);
+    // Тут ви можете додати будь-які інші дії, які потрібно виконати перед закриттям сторінки
 });
 
 var loseGame = function () {

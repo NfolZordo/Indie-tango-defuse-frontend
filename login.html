@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body>
@@ -15,77 +16,82 @@
         Your browser does not support the video tag.
     </video>
 
-    <header>
-        <h1>Indie Tango Defuse</h1>
-    </header>
+
     <div class="cotn_principal">
-    <div class="cont_centrar">
-    <div class="cont_login">
-    <div class="cont_info_log_sign_up">
-    <div class="col_md_login">
-    <div class="cont_ba_opcitiy">      
-        <h2>Login</h2>  
-      <p>Login to start defusing with your friends.</p> 
-      <button class="btn_login" onclick="change_to_login()">Login</button>
-      </div>
-    </div>
-    <div class="col_md_sign_up">
-    <div class="cont_ba_opcitiy">
-      <h2>Register</h2>
-      <p>Register to create profile.</p>
-      <button class="btn_sign_up" onclick="change_to_sign_up()">Register</button>
-    </div>
-      </div>
-           </div>
-    
-        
-        <div class="cont_back_info">
-           <div class="cont_img_back_grey">
-           <img src="/res/login_box.jpg" alt="" />
-           </div>
-           
+        <div class="cont_centrar">
+            <div class="cont_login">
+                <div class="cont_info_log_sign_up">
+                    <div class="col_md_login">
+                        <div class="cont_ba_opcitiy">
+                            <h2>Login</h2>
+                            <p>Login to start defusing with your friends.</p>
+                            <button class="btn_login" onclick="change_to_login()">Login</button>
+                        </div>
+                    </div>
+                    <div class="col_md_sign_up">
+                        <div class="cont_ba_opcitiy">
+                            <h2>Registration</h2>
+                            <p>Register to create profile.</p>
+                            <button class="btn_sign_up" onclick="change_to_sign_up()">Register</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="cont_back_info">
+                    <div class="cont_img_back_grey">
+                        <img src="/res/login_box.jpg" alt="" />
+                    </div>
+
+                </div>
+                <div class="cont_forms">
+                    <div class="cont_img_back_">
+                        <img src="/res/login_box.jpg" alt="" />
+                    </div>
+
+
+
+                    <div class="cont_form_login">
+                        <a href="#" onclick="hidden_login_and_sign_up()"><span
+                                class="material-symbols-outlined">arrow_back</span></a>
+                        <h2>Login</h2>
+                        <form onsubmit="authenticate(event)">
+                            <input type="email" name="email" placeholder="Email" />
+                            <input type="password" name="password" placeholder="Password" />
+                            <button class="btn_login" type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                    <div class="cont_form_sign_up">
+                        <a href="#" onclick="hidden_login_and_sign_up()"><span
+                                class="material-symbols-outlined">arrow_back</span></a>
+                        <h2>Registration</h2>
+                        <form onsubmit="register(event)">
+                            <input type="email" name="email" placeholder="Email" />
+                            <input type="text" name="UserName" placeholder="User" />
+                            <input type="password" name="password" placeholder="Password" />
+                            <input type="password" name="confirmPassword" placeholder="Confirm Password" />
+                            <button class="btn_sign_up" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    <div class="cont_forms" >
-        <div class="cont_img_back_">
-           <img src="/res/login_box.jpg" alt="" />
-           </div>
-
-
-
-   <div class="cont_form_login">
-    <a href="#" onclick="hidden_login_and_sign_up()" ><span class="material-symbols-outlined">arrow_back</span></a>
-        <h2>Login</h2>
-        <form onsubmit="authenticate(event)">
-            <input type="email" name="email" placeholder="Email" />
-            <input type="password" name="password" placeholder="Password" />
-            <button class="btn_login" type="submit">Login</button>
-        </form>
     </div>
-    
-   <div class="cont_form_sign_up">
-    <a href="#" onclick="hidden_login_and_sign_up()"><span class="material-symbols-outlined">arrow_back</span></a>
-     <h2>Register</h2>
-     <form onsubmit="register(event)">
-        <input type="email" name="email" placeholder="Email" />
-        <input type="text" name="UserName" placeholder="User" />
-        <input type="password" name="password" placeholder="Password" />
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" />
-        <button class="btn_sign_up" type="submit">Register</button>
-     </form>
-     </div>
-    </div>
-  </div>
- </div>
-</div>
 
-<footer>
-    Created by Oleksandr Serhienko / Oleksandr Zadorozhny
-</footer>
+    <header>
+        <button onclick="Return()">Return</button>
+        <h1>Indie Tango Defuse</h1>
+        <div class="invisible">Return</div>
+    </header>
+
+    <footer>
+        Created by Oleksandr Serhienko / Oleksandr Zadorozhny
+    </footer>
 
     <!-- <h2>addFriends</h2>
     <form onsubmit="addFriends(event)">
         <div>
-            <label for="email">friendEmail:</label>
             <input type="email" name="email" required>
         </div>
 
@@ -98,9 +104,14 @@
 </html>
 <script src="./webSocketHelper.js"></script>
 <script>
+    function Return() {
+        // Handle Return button click event
+        window.location.href = 'index.html';
+        console.log("Return button clicked");
+    }
     function authenticate(event) {
         event.preventDefault(); // Щоб уникнути перезавантаження сторінки
-        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/authenticate';
+        const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/authenticate';
         const formData = {
             email: event.target.email.value,
             password: event.target.password.value
@@ -122,17 +133,14 @@
             .then(data => {
                 localStorage.setItem('token', data.token);
                 console.log("token saved");
-                getFriends();
-
+                window.location.href = 'index.html';
             })
             .catch(error => console.error('Fetch error:', error));
-
-        
     }
 
     function register(event) {
         event.preventDefault();
-        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/register';
+        const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/register';
         const formData = {
             email: event.target.email.value,
             password: event.target.password.value
@@ -152,36 +160,17 @@
                 return response.json();
             })
             .then(data => {
+                console.log("t     .then(data => {");
                 localStorage.setItem('token', data.token);
                 console.log("token saved");
-            })
-            .catch(error => console.error('Fetch error:', error));
-    }
-
-    function getFriends() {
-        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/getFriends';
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("data:", data);
+                window.location.href = 'index.html';
             })
             .catch(error => console.error('Fetch error:', error));
     }
 
     function addFriends(event) {
         event.preventDefault();
-        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/addFriends';
+        const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/addFriends';
         fetch(url, {
             method: 'GET',
             headers: {
@@ -203,9 +192,9 @@
     }
 
     function logOut() {
+        localStorage.setItem('token', null);
         event.preventDefault();
-        localStorage.setItem('token', data.token);
-        const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/logout';
+        const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/api/auth/logout';
         fetch(url, {
             method: 'POST',
         });
@@ -218,43 +207,48 @@
     const time_to_hidden_login = 200;
 
     function change_to_login() {
-    document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_login";  
-    document.querySelector('.cont_form_login').style.display = "block";
-    document.querySelector('.cont_form_sign_up').style.opacity = "0";               
+        document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_login";
+        document.querySelector('.cont_form_login').style.display = "block";
+        document.querySelector('.cont_form_sign_up').style.opacity = "0";
 
-    setTimeout(function(){  document.querySelector('.cont_form_login').style.opacity = "1"; },time_to_show_login);  
-    
-    setTimeout(function(){    
-    document.querySelector('.cont_form_sign_up').style.display = "none";
-    },time_to_hidden_login);  
+        setTimeout(function () { document.querySelector('.cont_form_login').style.opacity = "1"; }, time_to_show_login);
+
+        setTimeout(function () {
+            document.querySelector('.cont_form_sign_up').style.display = "none";
+        }, time_to_hidden_login);
     }
 
     const time_to_show_sign_up = 100;
     const time_to_hidden_sign_up = 400;
 
     function change_to_sign_up(at) {
-    document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
-    document.querySelector('.cont_form_sign_up').style.display = "block";
-    document.querySelector('.cont_form_login').style.opacity = "0";
-    
-    setTimeout(function(){  document.querySelector('.cont_form_sign_up').style.opacity = "1";
-    },time_to_show_sign_up);  
+        document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
+        document.querySelector('.cont_form_sign_up').style.display = "block";
+        document.querySelector('.cont_form_login').style.opacity = "0";
 
-    setTimeout(function(){   document.querySelector('.cont_form_login').style.display = "none";
-    },time_to_hidden_sign_up);  
-    }    
+        setTimeout(function () {
+            document.querySelector('.cont_form_sign_up').style.opacity = "1";
+        }, time_to_show_sign_up);
+
+        setTimeout(function () {
+            document.querySelector('.cont_form_login').style.display = "none";
+        }, time_to_hidden_sign_up);
+    }
 
     const time_to_hidden_all = 500;
 
     function hidden_login_and_sign_up() {
 
-    document.querySelector('.cont_forms').className = "cont_forms";  
-    document.querySelector('.cont_form_sign_up').style.opacity = "0";               
-    document.querySelector('.cont_form_login').style.opacity = "0"; 
+        document.querySelector('.cont_forms').className = "cont_forms";
+        document.querySelector('.cont_form_sign_up').style.opacity = "0";
+        document.querySelector('.cont_form_login').style.opacity = "0";
 
-    setTimeout(function(){
-    document.querySelector('.cont_form_sign_up').style.display = "none";
-    document.querySelector('.cont_form_login').style.display = "none";
-    },time_to_hidden_all);  
-  }
+        setTimeout(function () {
+            document.querySelector('.cont_form_sign_up').style.display = "none";
+            document.querySelector('.cont_form_login').style.display = "none";
+        }, time_to_hidden_all);
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        logOut();
+    });
 </script>

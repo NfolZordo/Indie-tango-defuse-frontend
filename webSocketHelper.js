@@ -2,7 +2,7 @@ let stompClient = null;
 let sessionCode;
 var timerText = document.querySelector(".timer");
 var token;
-
+var gameCode;
 // Функція для підключення до WebSocket сервера
 function connect() {
     // let socket = new SockJS('http://localhost:5000/connect');
@@ -21,7 +21,6 @@ function connect() {
         });
         joinGame(sessionCode);
         getTask(sessionCode);
-        getFriends()
     });
 }
 
@@ -38,11 +37,11 @@ function connect() {
 // Функція для приєднання до існуючої гри
 function joinGame(gameCode) {
     let payload = {
-        gameCode: difficultyRadio.value,
+        gameCode: gameCode,
         Authorization: token
     };
-    // let gameCode = document.getElementById('newCode').value;
-    stompClient.send("/app/joinGame", {}, payload);
+    console.log(payload);
+    stompClient.send("/app/joinGame", {}, JSON.stringify(payload));
 }
 
 function getTask(gameCode) {
@@ -81,10 +80,10 @@ function showTimer(message) {
 
 // Підключення до WebSocket сервера при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function () {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') && localStorage.getItem('token') != "null") {
         token = 'Bearer ' + localStorage.getItem('token');
     } else {
-        token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxd2UzQHF3ZSIsImlhdCI6MTcwNzMyNzk1NCwiZXhwIjoxNzA3OTMyNzU0fQ.zmGla_mgb6PnkCLapxOUKpIriA3DzGtPVRcSBTx0Yx8';
+        token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZ2dAYXNkYXNkIiwiaWF0IjoxNzA3NDI1ODM3LCJleHAiOjE3MDgwMzA2Mzd9.e8Cgjz4WAn2iwDVG1XjsXCr5CfRWT7hKNsrRuJ1farM';
     }
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;

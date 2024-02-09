@@ -17,13 +17,19 @@
     </video>
 
     <header>
+        <div class="invisible">Login/Registration</div>
         <h1>Indie Tango Defuse</h1>
+        <button class="button" onclick="loginRegistration()">Login/Registration</button>
     </header>
 
     <main>
         <div>
-            <button onclick="defuserClicked()">Defuser</button>
-            <button onclick="openPopup()">Helper</button>
+            <button class="button" onclick="defuserClicked()">Defuser</button>
+            <button class="button" onclick="openPopup()">Helper</button>
+        </div>
+        <div class="friends">
+            <h3>Friends</h3>
+
         </div>
     </main>
 
@@ -35,12 +41,21 @@
     <div id="popup" class="popup">
         <p>Enter session:</p>
         <input type="text" id="inputField" onkeypress="checkEnter(event)">
-        <button onclick="displayDate()">Submit</button>
-        <button onclick="closePopup()">Close</button>
+        <button class="button" onclick="submitDate()">Submit</button>
+        <button class="button" onclick="closePopup()">Close</button>
     </div>
 
 
     <script>
+        var token;
+        var allFriends;
+        var onlineFriends;
+
+        function loginRegistration() {
+            // Handle log/reg button click event
+            window.location.href = 'login.html';
+            console.log("Login button clicked");
+        }
         function defuserClicked() {
             // Handle defuser button click event
             window.location.href = 'defuser.html';
@@ -52,7 +67,6 @@
             console.log("Helper button clicked");
             document.getElementById('popup').style.display = 'block';
             document.getElementById('inputField').focus();
-
         }
 
         function openPopup() {
@@ -70,10 +84,129 @@
             }
         }
 
-        function displayDate() {
+        function getFriends() {
+            const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/getFriends';
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+                .then(response => {
+                    console.log("header");
+                    console.log(localStorage.getItem('token'));
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    allFriends = data.allFriends;
+                    onlineFriends = data.onlineFriends;
+                    console.log(data.onlineFriends);
+                    console.log(JSON.stringify(data.onlineFriends));
+                    displayFriendsList();
+                })
+                .catch(error => console.error('Fetch error:', error));
+        }
+
+        function displayFriendsList() {
+            var friendsDiv = document.querySelector('.friends');
+            var friendsListHTML = '<h3>Friends</h3>';
+            var friendsListHTML = '<form onsubmit=\"addFriends(event)\"><div><input type=\"email\" name=\"email\" placeholder=\"Add to friend\" required><button class = "add_to_f" type="submit">Add</button></form>';
+            // Додаємо першу вкладку для всіх друзів
+            friendsListHTML += '<div class="tabs">';
+            friendsListHTML += '<div class="tab" onclick="switchTab(\'all\')">All Friends</div>';
+            friendsListHTML += '<div class="tab" onclick="switchTab(\'online\')">Online Friends</div>';
+            friendsListHTML += '</div>';
+
+            // Додаємо контент для всіх друзів
+            friendsListHTML += '<div class="tab-content allFriends" id="allFriends"><ul>';
+            allFriends.forEach(function (friend) {
+                friendsListHTML += '<li>' + friend + '</li>';
+            });
+            friendsListHTML += '</ul></div>';
+
+            // Додаємо контент для онлайн друзів
+            friendsListHTML += '<div class="tab-content onlineFriends" id="onlineFriends"><ul>';
+            friendsListHTML += '<p>' + 'Click on a friend\'s login to join' + '</p>';
+
+            for (const key in onlineFriends) {
+                if (Object.hasOwnProperty.call(onlineFriends, key)) {
+                    friendsListHTML += '<li onclick="displayDate(\'' + onlineFriends[key] + '\')" onmouseover="this.style.cursor=\'pointer\'" onmouseout="this.style.cursor=\'default\'">' + key + '</li>';
+                }
+            }
+            friendsListHTML += '</ul></div>';
+
+            friendsDiv.innerHTML = friendsListHTML;
+        }
+
+        function addFriends(event) {
+            event.preventDefault();
+            const url = 'http://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/addFriends';
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'friend': event.target.email.value
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data:", data);
+                    location.reload();
+                })
+                .catch(error => console.error('Fetch error:', error));
+        }
+
+        // Функція для перемикання вкладок
+        function switchTab(tabName) {
+            var tabs = document.querySelectorAll('.tab');
+            var tabContents = document.querySelectorAll('.tab-content');
+            tabs.forEach(function (tab) {
+                tab.classList.remove('active');
+            });
+            tabContents.forEach(function (tabContent) {
+                tabContent.style.display = 'none';
+            });
+            document.querySelector('.' + tabName + 'Friends').style.display = 'block';
+            document.querySelector('.' + tabName).classList.add('active');
+        }
+
+        function submitDate() {
             var selectedDate = document.getElementById('inputField').value;
             window.location.href = 'helper.html?sessionCode=' + encodeURIComponent(selectedDate);
         }
+
+        function displayDate(gameCode) {
+            var selectedDate = document.getElementById('inputField').value;
+            window.location.href = 'helper.html?sessionCode=' + encodeURIComponent(gameCode);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var friendsDiv = document.querySelector('.friends');
+            var headerDiv = document.querySelector('header div.invisible');
+            var headerButton = document.querySelector('header button.button');
+            if (localStorage.getItem('token') && localStorage.getItem('token') != "null") {
+                token = 'Bearer ' + localStorage.getItem('token');
+                headerDiv.textContent = "Logout";
+                headerButton.textContent = "Logout";
+            } else {
+                headerDiv.textContent = "Login/Registration";
+                headerButton.textContent = "Login/Registration";
+                token = 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZ2dAYXNkYXNkIiwiaWF0IjoxNzA3NDI1ODM3LCJleHAiOjE3MDgwMzA2Mzd9.e8Cgjz4WAn2iwDVG1XjsXCr5CfRWT7hKNsrRuJ1farM';
+                friendsDiv.classList.add('none');
+            }
+
+            getFriends();
+        });
     </script>
 
 </body>
