@@ -85,7 +85,7 @@
         }
 
         function getFriends() {
-            const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/getFriends';
+            const url = 'http://localhost:5000/getInfo/getFriends';
             fetch(url, {
                 method: 'GET',
                 headers: {
@@ -145,7 +145,7 @@
 
         function addFriends(event) {
             event.preventDefault();
-            const url = 'https://indie-tango-defuse-backend-dep-b485d223046a.herokuapp.com/getInfo/addFriends';
+            const url = 'http://localhost:5000/getInfo/addFriends';
             fetch(url, {
                 method: 'GET',
                 headers: {
@@ -161,7 +161,6 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log("data:", data);
                     location.reload();
                 })
                 .catch(error => console.error('Fetch error:', error));
